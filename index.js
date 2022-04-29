@@ -3,6 +3,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRouter = require('./app/authRouter')
 const userRouter = require('./app/userRouter')
+const User = require('./models/users')
+const bcrypt = require('bcrypt')
 const cors = require('cors')
 const app = express()
 
@@ -21,8 +23,13 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => {
+  .then(async () => {
     console.log('connected to mongodb')
+    new User({
+      username: 'admin',
+      password: await bcrypt.hash('admin', 10),
+      role: 'admin'
+    }).save()
   })
 
 app.listen(port, () => {

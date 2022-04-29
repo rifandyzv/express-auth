@@ -1,0 +1,23 @@
+version: '3.9'
+services:
+  mongodb1:
+    image: mongo:focal
+    container_name: mongo_container
+    networks:
+      - docker-net
+    volumes:
+      - /mongo-data:/data/db
+  express:
+    image: express:1.0
+    container_name: express_api
+    environment:
+      - MONGO_URI=mongodb://mongodb1:27017/auth_dev
+    ports:
+      - '8080:3000'
+    networks:
+      - docker-net
+    depends_on:
+      - mongodb
+networks:
+  docker-net:
+    name: docker-net
