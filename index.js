@@ -1,8 +1,8 @@
 require('dotenv').config()
-const { application } = require('express')
 const express = require('express')
 const mongoose = require('mongoose')
-const router = require('./app/router')
+const authRouter = require('./app/authRouter')
+const userRouter = require('./app/userRouter')
 const app = express()
 
 app.use(express.json())
@@ -27,4 +27,5 @@ app.listen(port, () => {
   console.log('server started at http://localhost:' + port)
 })
 
-app.use('/auth', router)
+app.use('/auth', authRouter)
+app.use('/user', userRouter)
