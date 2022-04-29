@@ -5,6 +5,9 @@ const { validRoles, checkUserRequest } = require('./authHandler')
 
 const getUserHandler = async (req, res) => {
   try {
+    if (req.user.role != 'admin') {
+      return res.status(401).json({ message: 'unauthorized role' })
+    }
     const allUser = await User.find()
     res.status(200).json(allUser)
   } catch (err) {
@@ -14,6 +17,9 @@ const getUserHandler = async (req, res) => {
 
 const getUserByIdHandler = async (req, res) => {
   try {
+    if (req.user.role != 'admin') {
+      return res.status(401).json({ message: 'unauthorized role' })
+    }
     const user = await User.findById(req.params.id)
     if (!user) {
       throw new Error('user not found!')
@@ -26,6 +32,9 @@ const getUserByIdHandler = async (req, res) => {
 
 const updateUserHandler = async (req, res) => {
   try {
+    if (req.user.role != 'admin') {
+      return res.status(401).json({ message: 'unauthorized role' })
+    }
     const id = req.params.id
     const username = req.body.username
     const password = req.body.password
@@ -61,8 +70,20 @@ const updateUserHandler = async (req, res) => {
   }
 }
 
+const deleteHandler = async (req, res) => {
+  try {
+    if (req.user.role != 'admin') {
+      return res.status(401).json({ message: 'unauthorized role' })
+    }
+    const deletedUser = await User.findByIdAndRemove(req.params.id)
+    res.status(200).json({ status: 'user deleted', user: deletedUser })
+  } catch (err) {}
+}
 const signUp = async (req, res) => {
   try {
+    if (req.user.role != 'admin') {
+      return res.status(401).json({ message: 'unauthorized role' })
+    }
     const username = req.body.username
     const password = req.body.password
     const role = req.body.role
@@ -98,9 +119,24 @@ const signUp = async (req, res) => {
     res.status(400).json({ message: err.message })
   }
 }
+
+const getAuthorizedUserHandler = async (req, res) => {
+  try {
+    const userId = req.user.id
+    if (!userId) {
+      throw new Error('invalid Token!')
+    }
+    const userData = await User.findById(userId)
+
+    res.status(200).json(userData)
+  } catch (err) {}
+}
+
 module.exports = {
   getUserHandler,
   getUserByIdHandler,
   updateUserHandler,
-  signUp
+  deleteHandler,
+  signUp,
+  getAuthorizedUserHandler
 }

@@ -3,6 +3,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const authRouter = require('./app/authRouter')
 const userRouter = require('./app/userRouter')
+const cors = require('cors')
 const app = express()
 
 app.use(express.json())
@@ -11,6 +12,7 @@ app.use(
     extended: true
   })
 )
+app.use(cors())
 
 const port = process.env.PORT || 3000
 
