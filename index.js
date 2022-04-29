@@ -23,13 +23,28 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(async () => {
+  .then(() => {
     console.log('connected to mongodb')
-    new User({
-      username: 'admin',
-      password: await bcrypt.hash('admin', 10),
-      role: 'admin'
-    }).save()
+    User.estimatedDocumentCount(async (err, count) => {
+      if (err) {
+        console.log(err)
+      } else {
+        if (count == 0) {
+          new User({
+            username: 'admin',
+            password: await bcrypt.hash('admin', 10),
+            role: 'admin'
+          }).save()
+          console.log('admin role created')
+          new User({
+            username: 'john',
+            password: await bcrypt.hash('password', 10),
+            role: 'user'
+          }).save()
+          console.log('user role created')
+        }
+      }
+    })
   })
 
 app.listen(port, () => {
