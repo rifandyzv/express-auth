@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-deployment
+  labels:
+    app: express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express
+  template:
+    metadata:
+      labels:
+        app: express
+    spec:
+      containers:
+      - name: express-auth
+        image: rifandyzv/express-auth:1.0
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGO_URI
+            value: "mongodb+srv://admin:admin@learning.xpygv.mongodb.net/express_auth?retryWrites=true&w=majority"
