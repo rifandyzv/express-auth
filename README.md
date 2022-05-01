@@ -10,6 +10,10 @@ Here are the sequnece diagram that descibe user with each API endpoints and data
 ![](/img/sequence-1.png)
 ![](/img/sequence-2.png)
 ![](/img/sequence-3.png)
+![](/img/sequence-4.png)
+![](/img/sequence-5.png)
+![](/img/sequence-6.png)
+![](/img/sequence-7.png)
 
 ### **Admin role credentials**
 
@@ -23,6 +27,7 @@ Here are some screenshots that shown the deployment process
 ![](/img/local-deployment-1.png)
 ![](/img/local-deployment-2.png)
 ![](/img/local-deployment-3.png)
+![](/img/swagger.png)
 
 I attach a youtube demonstration video for more details
 ### **Demonstration Video**
