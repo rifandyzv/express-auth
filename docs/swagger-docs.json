@@ -5,7 +5,7 @@
     "title": "Express Auth",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "192.168.90.135:30001",
   "basePath": "/",
   "schemes": ["http"],
   "paths": {

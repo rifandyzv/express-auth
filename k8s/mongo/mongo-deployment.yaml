@@ -21,7 +21,7 @@ spec:
           name: mongo
         volumeMounts:
         - name: mongo-pv-volume
-          mountPath: /var/lib/mysql
+          mountPath: /data/db
       volumes:
       - name: mongo-pv-volume
         persistentVolumeClaim:
@@ -33,7 +33,7 @@ metadata:
   name: mongo
 spec:
   ports:
-  - port: 27017
+  - port: -
     targetPort: 27017
     nodePort: 31000
   type: NodePort
