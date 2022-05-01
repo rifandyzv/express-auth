@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+spec:
+  selector:
+    matchLabels:
+      app: mongo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - image: mongo
+        name: mongodb
+        ports:
+        - containerPort: 27017
+          name: mongo
+        volumeMounts:
+        - name: mongo-pv-volume
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mongo-pv-volume
+        persistentVolumeClaim:
+          claimName: mongo-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+    nodePort: 31000
+  type: NodePort
+  selector:
+    app: mongo
