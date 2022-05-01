@@ -27,6 +27,8 @@ Here are some screenshots that shown the deployment process
 ![](/img/local-deployment-1.png)
 ![](/img/local-deployment-2.png)
 ![](/img/local-deployment-3.png)
+### **API Documentation**
+Here's the Swagger API Documentation
 ![](/img/swagger.png)
 
 I attach a youtube demonstration video for more details
