@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: express-auth
-        image: rifandyzv/express-auth:1.0
+        image: rifandyzv/express-auth:1.1
         ports:
         - containerPort: 3000
         env:
