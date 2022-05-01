@@ -21,4 +21,18 @@ spec:
         - containerPort: 3000
         env:
           - name: MONGO_URI
-            value: "mongodb+srv://admin:admin@learning.xpygv.mongodb.net/express_auth?retryWrites=true&w=majority"
+            value: "mongodb://192.168.90.135:31000/user"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: express-service
+spec:
+  selector:
+    app: express
+  type: NodePort
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000
+    nodePort: 30001
