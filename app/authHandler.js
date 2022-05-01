@@ -49,7 +49,7 @@ const verifyJWT = async (req, res, next) => {
       next()
     })
   } else {
-    res.status(401)
+    return res.status(401).json({message: "no authorization!"})
   }
 }
 
